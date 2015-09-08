@@ -1,11 +1,50 @@
 ID3 to unicode converter
 ==============
 
-Converter for mp3 tags into unicode in utf8 format. 
+Converter for mp3 tags into unicode in utf8 format.
 
 Python code is copied from https://code.google.com/p/id3-to-unicode/. Slight adjustment are made to make it work with current EyeD3 API.
 
 It worked for me at least once. Most likely it's quite buggy after my quick changes. Feel free to fork and update it for your needs.
+
+## Usage
+
+Install dependencies first.
+
+```bash
+pip install chardet, eyed3
+```
+
+**Tip** for Chinese:
+
+Use the mirror `-i https://pypi.mirrors.ustc.edu.cn/simple/` instead for your poor international internet connection speed. *How sweet I am!*
+
+Then run it.
+
+```bash
+python id3_to_unicode.py [options] [MP3Path...]
+```
+
+Options:
+
+* -h, --help
+    show this help message and exit
+* -r, --recursive
+    search recursively
+* -u, --update
+    update mp3 files
+* -o, --overwrite
+    overwrite tags from Artist/Album/Title directory structure
+* -R, --rename
+    rename file as well
+* -f, --force
+    treat files as mp3
+* -e ENCODING, --encoding ENCODING
+    always assume this encoding
+* --no-title-prefix
+    remove prefix number in title
+
+    Eg: "02. We are never ever..." -> "We are never ever..."
 
 Original readme:
 <pre>
