@@ -28,20 +28,35 @@ python id3_to_unicode.py [options] [MP3Path...]
 Options:
 
 * -h, --help
+
     show this help message and exit
+
 * -r, --recursive
+
     search recursively
+
 * -u, --update
+
     update mp3 files
+
 * -o, --overwrite
+
     overwrite tags from Artist/Album/Title directory structure
+
 * -R, --rename
+
     rename file as well
+
 * -f, --force
+
     treat files as mp3
+
 * -e ENCODING, --encoding ENCODING
+
     always assume this encoding
+
 * --no-title-prefix
+
     remove prefix number in title
 
     Eg: "02. We are never ever..." -> "We are never ever..."
