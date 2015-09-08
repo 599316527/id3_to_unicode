@@ -4,7 +4,7 @@
 #
 # $Id: id3_to_unicode.py 259 2011-08-20 08:54:25Z lenik $
 
-import os, sys, argparse, shutil
+import os, sys, argparse, shutil, re
 
 try :
     import codecs, chardet
@@ -21,20 +21,21 @@ def main():
     parser.add_argument('-o', '--overwrite', help='overwrite tags from Artist/Album/Title directory structure', action='store_true')
     parser.add_argument('-R', '--rename', help='rename file as well', action='store_true')
     parser.add_argument('-f', '--force', help='treat files as mp3', action='store_true')
-    parser.add_argument('-e', '--encoding', help='always assume this encoding')    
+    parser.add_argument('-e', '--encoding', help='always assume this encoding')
+    parser.add_argument('--no-title-prefix', help='remove title prefix number', action='store_true')
     parser.add_argument('location', type=str, nargs='?', default=path, help='search directory (default:%(default)s)')
 
     args = parser.parse_args()
-    
+
     if args.encoding:
         try:
             codecs.lookup(args.encoding)
         except:
             print "Don't know how to deal with '%s' codec"%(args.encoding)
             return
-    
+
     init()
-    
+
     process(args)
 
 def init():
@@ -62,7 +63,7 @@ def process(args):
                         shutil.move(fn, nfn)
                         fn = nfn
                     fset.append(fn)
-    
+
             if len(stats) :
                 stats = [(stats[i], i) for i in stats]
                 stats = sorted(stats, reverse=True)
@@ -80,7 +81,7 @@ def process(args):
             print
             if not args.recursive :
                 break
-    
+
     except KeyboardInterrupt :
         print 'Ctrl/C was pressed, aborting...'
         pass
@@ -138,6 +139,8 @@ def convert(args, file_name, encoding) :
     artist = make_unicode(artist, encoding)
     album = make_unicode(album, encoding)
     title = make_unicode(title, encoding)
+    if args.no_title_prefix:
+        title = re.sub(r'^\d+\.', '', title).strip()
 
     head, tail = os.path.split(os.path.abspath(file_name))
     if args.overwrite or not len(title) :
