@@ -12,7 +12,7 @@ It worked for me at least once. Most likely it's quite buggy after my quick chan
 Install dependencies first.
 
 ```bash
-pip install chardet, eyed3
+pip install chardet eyed3
 ```
 
 **Tip** for Chinese:
