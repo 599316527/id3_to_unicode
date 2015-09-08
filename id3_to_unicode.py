@@ -34,15 +34,18 @@ def main():
             print "Don't know how to deal with '%s' codec"%(args.encoding)
             return
 
-    init()
+    init(args)
 
     process(args)
 
-def init():
+def init(args):
     import warnings  # UnicodeWarning: Unicode unequal comparison failed, blah-blah...
     warnings.filterwarnings('ignore', category=UnicodeWarning)
 
     sys.stdout = codecs.getwriter("UTF8")(sys.stdout)
+
+    if not args.update or not args.overwrite:
+        print "[WARNING] ID3s won't be modified while no update/overwrite option is set."
 
 def process(args):
     try:
